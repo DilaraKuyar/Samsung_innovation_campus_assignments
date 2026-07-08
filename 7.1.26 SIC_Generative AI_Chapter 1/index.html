@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dilara Kuyar — Software Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-deep:#070a12;
+    --navy:#0c1120;
+    --anthracite:#181b22;
+    --bordo:#2a0c17;
+    --bordo-light:#4d1226;
+    --emerald:#22f7b4;
+    --emerald-dim:#0d3d30;
+    --emerald-soft:rgba(34,247,180,0.12);
+    --text-primary:#eae7e1;
+    --text-muted:#8c93a6;
+    --text-faint:#5c6272;
+    --line:rgba(34,247,180,0.14);
+    --serif:'Cormorant Garamond', serif;
+    --mono:'JetBrains Mono', monospace;
+    --sans:'Inter', sans-serif;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:
+      radial-gradient(ellipse 900px 600px at 12% 8%, rgba(77,18,38,0.35), transparent 60%),
+      radial-gradient(ellipse 800px 700px at 90% 15%, rgba(13,61,48,0.25), transparent 55%),
+      radial-gradient(ellipse 1000px 800px at 50% 100%, rgba(42,12,23,0.3), transparent 60%),
+      var(--navy-deep);
+    color:var(--text-primary);
+    font-family:var(--sans);
+    line-height:1.6;
+    overflow-x:hidden;
+    position:relative;
+  }
+
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background-image:
+      linear-gradient(rgba(234,231,225,0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(234,231,225,0.015) 1px, transparent 1px);
+    background-size:48px 48px;
+    pointer-events:none;
+    z-index:0;
+  }
+
+  .noise-line{
+    position:fixed;
+    top:0;left:0;right:0;
+    height:1px;
+    background:linear-gradient(90deg, transparent, var(--emerald), transparent);
+    opacity:0.5;
+    z-index:5;
+    animation:scan 9s linear infinite;
+  }
+  @keyframes scan{
+    0%{top:0%; opacity:0;}
+    5%{opacity:0.6;}
+    50%{opacity:0.15;}
+    95%{opacity:0.6;}
+    100%{top:100%; opacity:0;}
+  }
+
+  section, header, footer{position:relative; z-index:1;}
+
+  ::selection{background:var(--emerald-dim); color:var(--emerald);}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed;
+    top:0; left:0; right:0;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:26px 6vw;
+    z-index:20;
+    backdrop-filter:blur(10px);
+    background:linear-gradient(to bottom, rgba(7,10,18,0.75), transparent);
+  }
+  .nav-mark{
+    font-family:var(--mono);
+    font-size:13px;
+    letter-spacing:0.15em;
+    color:var(--text-muted);
+  }
+  .nav-mark span{color:var(--emerald);}
+  .nav-links{
+    display:flex;
+    gap:34px;
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.12em;
+  }
+  .nav-links a{
+    color:var(--text-muted);
+    text-decoration:none;
+    transition:color .3s ease;
+    position:relative;
+  }
+  .nav-links a:hover{color:var(--emerald);}
+  .nav-links a:focus-visible{outline:1px solid var(--emerald); outline-offset:4px;}
+
+  @media (max-width:720px){
+    .nav-links{display:none;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    justify-content:center;
+    padding:0 6vw;
+    position:relative;
+  }
+  .hero-eyebrow{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0.2em;
+    color:var(--emerald);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:26px;
+  }
+  .hero-eyebrow::before{
+    content:"";
+    width:7px;height:7px;
+    border-radius:50%;
+    background:var(--emerald);
+    box-shadow:0 0 12px var(--emerald), 0 0 24px var(--emerald);
+    animation:pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{opacity:1; transform:scale(1);}
+    50%{opacity:0.4; transform:scale(0.75);}
+  }
+  .hero h1{
+    font-family:var(--serif);
+    font-weight:500;
+    font-size:clamp(3.2rem, 9vw, 7.2rem);
+    line-height:0.98;
+    letter-spacing:0.01em;
+    color:var(--text-primary);
+  }
+  .hero h1 em{
+    font-style:italic;
+    color:transparent;
+    -webkit-text-stroke:1px var(--emerald);
+    font-weight:400;
+  }
+  .hero-role{
+    font-family:var(--mono);
+    font-size:clamp(13px,1.6vw,16px);
+    color:var(--text-muted);
+    margin-top:22px;
+    max-width:640px;
+    letter-spacing:0.02em;
+  }
+  .hero-role .accent{color:var(--emerald);}
+  
+  /* HACKER STYLE BUTTON */
+  .hero-btn {
+    display: inline-block;
+    margin-top: 36px;
+    padding: 14px 28px;
+    background: rgba(34,247,180,0.05);
+    border: 1px solid var(--emerald);
+    color: var(--emerald);
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+  .hero-btn:hover {
+    background: var(--emerald);
+    color: var(--navy-deep);
+    box-shadow: 0 0 15px var(--emerald-dim);
+  }
+
+  .hero-divider{
+    margin-top:52px;
+    display:flex;
+    align-items:center;
+    gap:18px;
+    color:var(--text-faint);
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.15em;
+  }
+  .hero-divider .line{
+    width:70px;height:1px;
+    background:linear-gradient(90deg, var(--emerald), transparent);
+  }
+
+  .scroll-cue{
+    position:absolute;
+    bottom:40px; left:6vw;
+    font-family:var(--mono);
+    font-size:10px;
+    letter-spacing:0.2em;
+    color:var(--text-faint);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .scroll-cue::after{
+    content:"";
+    width:1px; height:34px;
+    background:linear-gradient(var(--emerald), transparent);
+    animation:drop 2s ease-in-out infinite;
+  }
+  @keyframes drop{
+    0%{transform:scaleY(0); transform-origin:top;}
+    50%{transform:scaleY(1); transform-origin:top;}
+    50.1%{transform-origin:bottom;}
+    100%{transform:scaleY(0); transform-origin:bottom;}
+  }
+
+  /* ---------- SECTION SHARED ---------- */
+  .section{
+    padding:170px 6vw;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:100px;
+    align-items:center;
+    max-width:1400px;
+    margin:0 auto;
+  }
+  .section.reverse .section-media{order:2;}
+  .section.reverse .section-text{order:1;}
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0.18em;
+    color:var(--emerald);
+    margin-bottom:20px;
+    display:block;
+  }
+  .section-text h2{
+    font-family:var(--serif);
+    font-weight:500;
+    font-size:clamp(2.4rem, 4vw, 3.6rem);
+    margin-bottom:28px;
+    color:var(--text-primary);
+    letter-spacing:0.01em;
+  }
+  .section-text p{
+    color:var(--text-muted);
+    font-size:16px;
+    font-weight:300;
+    margin-bottom:18px;
+    max-width:560px;
+  }
+  .section-text p strong{
+    color:var(--text-primary);
+    font-weight:500;
+  }
+  .section-text p .glow{color:var(--emerald); font-weight:500;}
+
+  .tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:30px;
+  }
+  .tag{
+    font-family:var(--mono);
+    font-size:11.5px;
+    letter-spacing:0.05em;
+    color:var(--text-muted);
+    border:1px solid var(--line);
+    background:rgba(34,247,180,0.03);
+    padding:7px 14px;
+    border-radius:4px;
+    transition:all .3s ease;
+  }
+  .tag:hover{
+    color:var(--emerald);
+    border-color:var(--emerald);
+    background:var(--emerald-soft);
+  }
+
+  .credentials{
+    margin-top:34px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  .cred{
+    display:flex;
+    gap:16px;
+    align-items:baseline;
+    border-left:1px solid var(--line);
+    padding-left:16px;
+  }
+  .cred .org{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--emerald);
+    min-width:100px;
+  }
+  .cred .role{
+    font-size:14.5px;
+    color:var(--text-muted);
+    font-weight:300;
+  }
+
+  /* ---------- IMAGE FRAME ---------- */
+  .section-media{
+    position:relative;
+    display:flex;
+    justify-content:center;
+  }
+  .frame{
+    position:relative;
+    width:100%;
+    max-width:430px;
+    aspect-ratio:4/5;
+  }
+  .frame img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:18px;
+    display:block;
+    filter:grayscale(15%) contrast(1.05) brightness(0.92);
+    box-shadow:
+      0 30px 60px -20px rgba(0,0,0,0.6),
+      0 0 0 1px rgba(255,255,255,0.04),
+      0 0 40px rgba(34,247,180,0.06);
+    transition:filter .5s ease, transform .5s ease;
+  }
+  .frame:hover img{
+    filter:grayscale(0%) contrast(1.05) brightness(1);
+    transform:translateY(-4px);
+  }
+  .corner{
+    position:absolute;
+    width:26px; height:26px;
+    border-color:var(--emerald);
+    opacity:0.85;
+  }
+  .corner.tl{top:-10px; left:-10px; border-top:2px solid; border-left:2px solid; border-radius:6px 0 0 0;}
+  .corner.br{bottom:-10px; right:-10px; border-bottom:2px solid; border-right:2px solid; border-radius:0 0 6px 0;}
+  .frame-label{
+    position:absolute;
+    bottom:-34px; left:0;
+    font-family:var(--mono);
+    font-size:10.5px;
+    letter-spacing:0.12em;
+    color:var(--text-faint);
+  }
+
+  /* ---------- REVEAL ---------- */
+  .reveal{
+    opacity:0;
+    transform:translateY(28px);
+    transition:opacity .9s ease, transform .9s ease;
+  }
+  .reveal.visible{opacity:1; transform:translateY(0);}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    padding:110px 6vw 60px;
+    border-top:1px solid var(--line);
+    text-align:center;
+  }
+  footer .eyebrow{justify-content:center; display:flex;}
+  footer h3{
+    font-family:var(--serif);
+    font-size:clamp(2rem,4vw,3rem);
+    font-weight:500;
+    margin-bottom:26px;
+  }
+  .footer-links{
+    display:flex;
+    justify-content:center;
+    gap:36px;
+    flex-wrap:wrap;
+    margin-bottom:60px;
+  }
+  .footer-links a{
+    font-family:var(--mono);
+    font-size:12.5px;
+    letter-spacing:0.1em;
+    color:var(--text-muted);
+    text-decoration:none;
+    border-bottom:1px solid transparent;
+    padding-bottom:4px;
+    transition:all .3s ease;
+  }
+  .footer-links a:hover{color:var(--emerald); border-color:var(--emerald);}
+  .copyright{
+    font-family:var(--mono);
+    font-size:10.5px;
+    color:var(--text-faint);
+    letter-spacing:0.08em;
+  }
+
+  /* ---------- TOAST NOTIFICATION ---------- */
+  #toast {
+    visibility: hidden;
+    min-width: 300px;
+    background-color: var(--navy);
+    color: var(--emerald);
+    text-align: center;
+    border: 1px solid var(--emerald);
+    border-radius: 4px;
+    padding: 18px;
+    position: fixed;
+    z-index: 1000;
+    left: 50%;
+    bottom: 20px;
+    transform: translateX(-50%);
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    box-shadow: 0 0 20px rgba(34,247,180,0.15);
+    opacity: 0;
+    transition: opacity 0.4s, bottom 0.4s;
+  }
+  #toast.show {
+    visibility: visible;
+    opacity: 1;
+    bottom: 50px;
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:900px){
+    .section{
+      grid-template-columns:1fr;
+      gap:56px;
+      padding:110px 7vw;
+    }
+    .section.reverse .section-media{order:1;}
+    .section.reverse .section-text{order:2;}
+    .frame{max-width:340px;}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none !important; transition:none !important;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<div class="noise-line"></div>
+
+<!-- TOAST CONTAINER -->
+<div id="toast">>> MODÜL YAKINDA AKTİF EDİLECEKTİR.</div>
+
+<nav>
+  <div class="nav-mark">DILARA<span>.</span>KUYAR</div>
+  <div class="nav-links">
+    <a href="#whoami">WHOAMI</a>
+    <a href="#skillset">SKILLSET</a>
+    <a href="#objective">OBJECTIVE</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-eyebrow">SYSTEM STATUS // ACTIVE</div>
+  <h1>Dilara<br><em>Kuyar</em></h1>
+  <p class="hero-role">Yazılım Mühendisliği Öğrencisi <span class="accent">/</span> Full-Stack Geliştirici <span class="accent">/</span> Siber Güvenlik &amp; Yapay Zekâ Meraklısı</p>
+  
+  <!-- COMING SOON BUTTON EXAMPLE -->
+  <a href="#" class="hero-btn btn-coming-soon">SİSTEME GİRİŞ YAP</a>
+
+  <div class="hero-divider"><span class="line"></span> YAŞAR ÜNİVERSİTESİ — 4. SINIF</div>
+  <div class="scroll-cue">SCROLL</div>
+</header>
+
+<section class="section reveal" id="whoami">
+  <div class="section-text">
+    <span class="eyebrow">&gt;&gt; 01_WHOAMI.LOG</span>
+    <h2>İçsel Dünyam</h2>
+    <p>Ben <strong>Dilara Kuyar</strong>, Yaşar Üniversitesi Yazılım Mühendisliği bölümünde son sınıf öğrencisiyim. Kendimi <strong>özgüvenli, rasyonel ve hümanist</strong> bir yapıyla tanımlarım — teknik problemlere soğukkanlı yaklaşırken insana dair tarafı hiç kaybetmeyen biri.</p>
+    <p>Evde geçirdiğim sakin anlar, <span class="glow">keman</span> çalmak ve düzenli spor benim dengemi kuran alışkanlıklarım. Kahve ise bir tutkudan öte; evimde profesyonel bir makinem var ve <span class="glow">barista seviyesinde</span> kahveyle ilgileniyorum — hassasiyet ve sabır gerektiren her şey ilgimi çekiyor.</p>
+    <p>ABD'deki <strong>Work &amp; Travel</strong> deneyimim, farklı kültürlerden insanlarla müşteri ilişkileri kurma konusunda bana gerçek dünya pratiği kazandırdı.</p>
+  </div>
+  <div class="section-media">
+    <div class="frame">
+      <div class="corner tl"></div>
+      <div class="corner br"></div>
+      <img src="foto1.jpg" alt="Dilara Kuyar portre">
+    </div>
+  </div>
+</section>
+
+<section class="section reverse reveal" id="skillset">
+  <div class="section-media">
+    <div class="frame">
+      <div class="corner tl"></div>
+      <div class="corner br"></div>
+      <img src="foto2.jpg" alt="Dilara Kuyar çalışırken">
+    </div>
+  </div>
+  <div class="section-text">
+    <span class="eyebrow">&gt;&gt; 02_SKILLSET.JSON</span>
+    <h2>Yeteneklerim</h2>
+    <p><strong>Bosch</strong>'ta bilgisayarlı görü ve LLM prototipleri üzerine, <strong>Preunec</strong>'te ise uçtan uca full-stack uygulamalar geliştirdim. Kapsamlı <span class="glow">RESTful API</span> mimarileri kurabiliyor, <span class="glow">Selenium</span> ve <span class="glow">JMeter</span> ile test otomasyonu gerçekleştirebiliyorum.</p>
+    <p>Teknik ekiplere liderlik etme konusunda da deneyimliyim: <strong>IEEE Öğrenci Topluluğu'nda Başkan Yardımcılığı</strong> ve <strong>Bilgisayar Topluluğu'nda Başkanlık</strong> görevlerini yürüttüm.</p>
+    <div class="tags">
+      <span class="tag">Java</span>
+      <span class="tag">C#</span>
+      <span class="tag">Python</span>
+      <span class="tag">SQL</span>
+      <span class="tag">React</span>
+      <span class="tag">Node.js</span>
+      <span class="tag">AWS</span>
+      <span class="tag">Selenium</span>
+      <span class="tag">JMeter</span>
+    </div>
+    <div class="credentials">
+      <div class="cred"><span class="org">BOSCH</span><span class="role">Computer Vision &amp; LLM Prototyping</span></div>
+      <div class="cred"><span class="org">PREUNEC</span><span class="role">Full-Stack Development</span></div>
+      <div class="cred"><span class="org">IEEE</span><span class="role">Başkan Yardımcısı</span></div>
+      <div class="cred"><span class="org">BİL. TOP.</span><span class="role">Topluluk Başkanı</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section reveal" id="objective">
+  <div class="section-text">
+    <span class="eyebrow">&gt;&gt; 03_OBJECTIVE.EXE</span>
+    <h2>Geleceğe Dair Hedefim</h2>
+    <p>Gelecekte siber güvenlik alanında, özellikle <strong>sızma testi (pentesting)</strong> uzmanı veya <strong>etik hacker</strong> olarak esnek çalışma ortamlarında yer almak istiyorum.</p>
+    <p><span class="glow">Yapay zekâ ve siber güvenliğin kesişimi</span> benim en büyük ilgi alanım; bitirme tezimi de tam olarak bu konu üzerine yazıyorum: <strong>"Yapay Zekadaki Siber Güvenlik Açıkları."</strong></p>
+    <p>Büyük veri ve makine öğrenmesini kullanarak insan davranışlarını ya da tıbbi verileri analiz edip, gerçek dünyaya değer katan <strong>yenilikçi çözümler</strong> üretmeyi hedefliyorum.</p>
+  </div>
+  <div class="section-media">
+    <div class="frame">
+      <div class="corner tl"></div>
+      <div class="corner br"></div>
+      <img src="foto3.jpg" alt="Dilara Kuyar gelecek vizyonu">
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="eyebrow">&gt;&gt; CONNECT.SH</span>
+  <h3>Birlikte çalışalım.</h3>
+  <div class="footer-links">
+    <a href="mailto:dilarakuyar30@gmail.com">EMAIL (dilarakuyar30@gmail.com)</a>
+  </div>
+  <div class="copyright">© 2026 DILARA KUYAR — ALL SYSTEMS SECURE</div>
+</footer>
+
+<script>
+  // SCROLL ANIMATIONS
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, {threshold:0.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // TOAST NOTIFICATION LOGIC
+  document.querySelectorAll('.btn-coming-soon').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault(); // Prevent page jump
+      const toast = document.getElementById("toast");
+      toast.className = "show";
+      setTimeout(function(){ 
+        toast.className = toast.className.replace("show", ""); 
+      }, 3000);
+    });
+  });
+</script>
+
+</body>
+</html>
